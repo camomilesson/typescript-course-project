@@ -5,7 +5,8 @@
     "lib": ["ESNext", "DOM"],
     "strict": true,
     "verbatimModuleSyntax": true,
-    "erasableSyntaxOnly": true
+    "erasableSyntaxOnly": true,
+    "types": ["node"]
   },
   "include": ["src"]
 }
