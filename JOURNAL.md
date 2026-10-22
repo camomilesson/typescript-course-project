@@ -21,3 +21,23 @@ Since it's the first lecture, it didn't really lean on any previous course conte
 ## After Homework
 
 No resolutions so far, due to the lack of struggles.
+
+# Cycle 2 Journal
+
+## Discovery
+
+Covered in class, nothing to add, really.
+
+## Before homework
+
+Tbh, I forgot that you're supposed to fill this out before doing the actual HW and I don't wanna pretend.
+
+Since I had no sticking points the day before, there was nothing to resolve.
+
+Unfortunately, I missed the first half of the class, so I was a bit uncertain of how to start the setup — but using class materials I easily looked everything up.
+
+## After homework
+
+It was fun, actually. I felt that adding a couple of arrays is too easy — so I built a working CLI quiz, with input reading and all.
+
+Had to look some things up online, but nothing was too complicated. Also, using **await** for input reading felt strange after Python's simple input().
