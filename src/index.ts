@@ -10,6 +10,11 @@ interface Question {
   choices: Choice[]
 }
 
+interface Outcome {
+  title: string
+  description: string
+}
+
 const questions: Question[] = [
   {
     text: "Which ability modifier do you normally add to initiative?",
@@ -54,6 +59,25 @@ const questions: Question[] = [
   },
 ]
 
+const outcomes: Outcome[] = [
+  {
+    title: "Commoner",
+    description: "You have much to learn, adventurer.",
+  },
+  {
+    title: "Adventurer",
+    description: "You've survived your first encounter.",
+  },
+  {
+    title: "Dungeon Master",
+    description: "You know your way around the rules.",
+  },
+  {
+    title: "Dungeon Master Master",
+    description: "Is that you, Ao?",
+  },
+]
+
 const rl = createInterface({
   input: process.stdin,
   output: process.stdout,
@@ -79,6 +103,15 @@ for (const q of questions) {
   }
 }
 
-console.log(`\nFinal score: ${score}/${questions.length}`)
+const outcome = outcomes[score]
+
+if (outcome) {
+  console.log(`
+==============================
+Rank: ${outcome.title}
+${outcome.description}
+==============================
+`)
+}
 
 rl.close()
