@@ -70,3 +70,24 @@ export function award(answer: Answer): number {
       return answer.value ? 1 : 0
   }
 }
+
+export function recap(question: Question, answer: Answer): string {
+  if (question.kind !== answer.kind) {
+    throw new Error("Question and answer kinds do not match")
+  }
+
+  switch (answer.kind) {
+    case "choice": {
+      return `${question.text} You chose: ${answer.picked.label}.`
+    }
+    case "scale": {
+      return `${question.text} You rated it ${answer.value} out of 5.`
+    }
+    case "yesno": {
+      const response = answer.value ? "yes" : "no"
+      return `${question.text} You said ${response}.`
+    }
+    default:
+      throw new Error("Unknown kind")
+  }
+}
