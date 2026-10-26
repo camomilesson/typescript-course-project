@@ -25,3 +25,6 @@ build/
 
 # Coverage reports
 coverage/
+
+# Temporary files
+src/practice.ts
