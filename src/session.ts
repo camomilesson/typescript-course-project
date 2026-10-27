@@ -4,6 +4,7 @@ import {
   type OutcomeId,
   type Question,
 } from "./types.ts"
+import { recap } from "./quiz.ts"
 
 export type Status = "waiting" | "asking" | "done"
 
@@ -21,6 +22,14 @@ export class Session {
     rogue: 0,
     wizard: 0,
   }
+
+  private reasons: Record<OutcomeId, string[]> = {
+    fighter: [],
+    ranger: [],
+    rogue: [],
+    wizard: [],
+  }
+
   private outcomes: Outcome[]
   private status: Status = "waiting"
 
@@ -41,12 +50,16 @@ export class Session {
       throw new Error("The quiz has not started yet")
     }
 
-    const { outcome, points } = award(question, answer)
+    const result = award(question, answer)
 
-    this.totalPoints += points
-    this.tally[outcome] += points
+    this.totalPoints += result.points
+    this.tally[result.outcome] += result.points
 
-    return { outcome, points }
+    if (result.points > 0) {
+      this.reasons[result.outcome].push(recap(question, answer))
+    }
+
+    return result
   }
 
   public finish(): void {
@@ -75,6 +88,16 @@ export class Session {
     }
 
     return best
+  }
+
+  public explain(): string[] {
+    if (this.status !== "done") {
+      throw new Error("The quiz is still in progress")
+    }
+
+    const title = this.result()
+
+    return [...this.reasons[title.id]]
   }
 
   public total(): number {

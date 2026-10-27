@@ -1,11 +1,10 @@
 import { closeInput, readInput } from "./cli.ts"
 import { outcomes, questions } from "./data.ts"
-import { formatQuestion, parseAnswer, recap } from "./quiz.ts"
+import { formatQuestion, parseAnswer } from "./quiz.ts"
 import { Session } from "./session.ts"
-import type { Question, Answer } from "./types.ts"
+import type { Answer } from "./types.ts"
 
 const session = new Session(outcomes)
-const results: { question: Question; answer: Answer }[] = []
 
 session.start()
 
@@ -25,7 +24,6 @@ try {
     }
 
     const award = session.record(question, answer)
-    results.push({ question, answer })
 
     console.log(`Your answer is worth ${award.points} points`)
     console.log()
@@ -40,8 +38,10 @@ try {
   console.log(outcome.description)
   console.log()
 
-  for (const result of results) {
-    console.log(recap(result.question, result.answer))
+  console.log("You got this because:")
+
+  for (const reason of session.explain()) {
+    console.log(`- ${reason}`)
   }
 } finally {
   closeInput()
