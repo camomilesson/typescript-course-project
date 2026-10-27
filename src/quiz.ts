@@ -36,7 +36,7 @@ export function parseAnswer(
         return undefined
       }
 
-      return { kind: "choice", picked }
+      return { kind: "choice", picked, outcome: picked.outcome }
     }
     case "scale": {
       const scaleValue = Number(value)
@@ -44,30 +44,19 @@ export function parseAnswer(
         return undefined
       }
 
-      return { kind: "scale", value: scaleValue }
+      return { kind: "scale", value: scaleValue, outcome: question.outcome }
     }
     case "yesno": {
       if (value === "y") {
-        return { kind: "yesno", value: true }
+        return { kind: "yesno", value: true, outcome: question.outcome }
       }
 
       if (value === "n") {
-        return { kind: "yesno", value: false }
+        return { kind: "yesno", value: false, outcome: question.outcome }
       }
 
       return undefined
     }
-  }
-}
-
-export function award(answer: Answer): number {
-  switch (answer.kind) {
-    case "choice":
-      return answer.picked.points
-    case "scale":
-      return answer.value
-    case "yesno":
-      return answer.value ? 1 : 0
   }
 }
 

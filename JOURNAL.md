@@ -41,3 +41,21 @@ Unfortunately, I missed the first half of the class, so I was a bit uncertain of
 It was fun, actually. I felt that adding a couple of arrays is too easy — so I built a working CLI quiz, with input reading and all.
 
 Had to look some things up online, but nothing was too complicated. Also, using **await** for input reading felt strange after Python's simple input().
+
+# Cycle 3 Journal (belated?)
+
+Since Google Classroom updated the deadline for this one only retroactively, I completely forgot to sumbit it last week. I hope it won't be a problem.
+
+## Discovery
+
+Discussed in class, nothing to add, really. Btw, I had some fun implementing input checks in my version of Cycle 2 HW since I'm doing actual CLI input instead of hardcoded answers.
+
+## Before homework
+
+Hmmm, now that I'm thinking about it, I'm pretty sure the Friday, Oct 22nd deadline for Cycle 3 Journal can't be correct. Because it requires us to fill out both Before and After for a Cycle 3 HW, the deadline for which is still set for Tuesday, Oct 27th.
+
+Anyways, might as well write this now. I'm feeling pretty solid, no complaints here. Interesting to go in depth on a bunch of topics during class, I feel like it makes you both a better developer and a better LLM-output-validator. Talked to a couple of classmates, some of them are reasonably-seasoned JS/TS devs — and even they have not heard before about some of the stuff that's covered.
+
+Idk, really, what 'today' is in 'What previous content did today's material lean on?', considering the kerfuffle with the date of this journal assignment. Today, on Monday, we were largely discussing guards and validation. I'd say we mostly leaned on the type checks that were covered previously.
+
+## After homework

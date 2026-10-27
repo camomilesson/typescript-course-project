@@ -1,16 +1,51 @@
-import { type Question } from "./types.ts"
+import { type Outcome, type Question } from "./types.ts"
 
 // Question data kept as placeholders for now.
 // To be filled with real questions as the project approaches completion.
+
+export const outcomes: Outcome[] = [
+  {
+    id: "fighter",
+    title: "Fighter",
+    description: "Description for the fighter-type outcome",
+  },
+  {
+    id: "ranger",
+    title: "Ranger",
+    description: "Description for the ranger-type outcome",
+  },
+  {
+    id: "rogue",
+    title: "Rogue",
+    description: "Description for the rogue-type outcome",
+  },
+  {
+    id: "wizard",
+    title: "Wizard",
+    description: "Description for the wizard-type outcome",
+  },
+]
 
 export const questions: Question[] = [
   {
     kind: "choice",
     text: "Choice question?",
     choices: [
-      { label: "Option 1", points: 3 },
-      { label: "Option 2", points: 1 },
-      { label: "Option 3", points: 2 },
+      {
+        label: "Option 1",
+        points: 3,
+        outcome: "fighter",
+      },
+      {
+        label: "Option 2",
+        points: 1,
+        outcome: "wizard",
+      },
+      {
+        label: "Option 3",
+        points: 2,
+        outcome: "rogue",
+      },
     ],
   },
   {
@@ -18,6 +53,7 @@ export const questions: Question[] = [
     text: "Scale question?",
     low: "low answer",
     high: "high answer",
+    outcome: "ranger",
   },
-  { kind: "yesno", text: "Yes or no question?" },
+  { kind: "yesno", text: "Yes or no question?", outcome: "fighter" },
 ]
