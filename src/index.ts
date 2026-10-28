@@ -2,7 +2,11 @@ import { quiz } from "./data.ts"
 import { loadSavedGame } from "./lib/load.ts"
 import { formatQuestion } from "./lib/quiz.ts"
 import { Session } from "./lib/session.ts"
-import { savedGame } from "./saved.ts"
+import { loadSettings } from "./lib/settings.ts"
+import { savedGame, savedSettings } from "./saved.ts"
+
+const settings = loadSettings(savedSettings)
+console.log(`Hello, ${settings.name}!`)
 
 const session = new Session(quiz.outcomes)
 const { answers } = loadSavedGame(savedGame)
@@ -17,7 +21,7 @@ for (const [index, question] of quiz.questions.entries()) {
   const answer = answers[index]
   const { outcome, points } = session.record(question, answer)
 
-  console.log(formatQuestion(question))
+  console.log(formatQuestion(question, settings.hints))
   console.log(`Your answer is worth ${points} points for ${outcome}`)
   console.log()
 }
@@ -37,10 +41,23 @@ for (const reason of session.explain()) {
 }
 
 // Broken save check
+console.log("Broken save check")
 try {
   loadSavedGame('{"answers":[{"kind":"scale","value":"five"}]}')
 } catch (error) {
   if (error instanceof Error) {
     console.log(error.message)
+  }
+}
+
+// Broken settings check
+console.log("Broken settings check")
+for (const saved of ['{"name":"Ada","hints":"no"}', "{"]) {
+  try {
+    loadSettings(saved)
+  } catch (error) {
+    if (error instanceof Error) {
+      console.log(error.message)
+    }
   }
 }

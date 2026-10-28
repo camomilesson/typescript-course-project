@@ -1,7 +1,8 @@
 import type { Question, Answer } from "./types.ts"
 
-export function formatQuestion(question: Question): string {
-  const hint = question.hint ? `\nHint: ${question.hint}` : ""
+export function formatQuestion(question: Question, hints?: boolean): string {
+  const hint =
+    hints !== false && question.hint ? `\nHint: ${question.hint}` : ""
 
   switch (question.kind) {
     case "choice": {
