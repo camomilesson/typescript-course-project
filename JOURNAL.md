@@ -96,3 +96,20 @@ Otherwise, feeling solid, trudging along.
 
 Blimey, that was hard. No actual coding, but just figuring out all the setup steps. Fortunately, you're just supposed to do it once per monorepo.
 
+# Cycle 1 Journal (again)
+
+## Discovery
+
+Haha, took me a minute to notice. Obviously, it's .floor() vs .round(). Solution: use the same function for all surfaces.
+
+To do that, we can have a file that exports this function and others that use it. Keyword: export.
+
+It would print that message once, because — as you said in today's class — it evaluates the module once and reuses it for subsequent imports.
+
+## Before homework
+
+Feeling anxious about having to do both the Course Project and the Personal Project on the same day.
+
+## After homework
+
+To be added after I complete the homework. The deadline mismatch bw journals and their corresponding homeworks is kinda annoying.
