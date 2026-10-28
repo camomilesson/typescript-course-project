@@ -61,3 +61,19 @@ Idk, really, what 'today' is in 'What previous content did today's material lean
 ## After homework
 
 Actually, I had to redo part of the previous code. My initial implementation was more of a classical quiz, with right and wrong answers. Here, the task required to add outcomes to everything — which implies that all answers are kinda correct and that the purpose of the quiz is smth we talked about in the first few classes: a classification system a-la Buzzfeed quizzes. It wasn't too difficult, just a tiny bit annoying — as it always is with redoing your own work.
+
+# Cycle 4 Journal
+
+## Discovery
+
+We covered it in class extensively, so there's not much use reiterating it. But yeah, most items are broken: some fail on JSON.parse(), some on the abcense of a numeric quantity.
+
+Overall, I kinda like input parsing. It's most often a very self-contained logical problem. You have to cover all the bases, otherwise it will break at some point.
+
+## Before homework
+
+Yeah, this one did annoy me a bit. As you may have noticed, I started the first Course Project task with implementing an actual input reader in cli.ts — it's always my first instinct, to build a mininmal working solution and iterate from there. Emulating input in the first cycles — and now emulating the whole completed game — feels kinda wrong. There's nothing actually wrong with it, it's just not the way I personally prefer.
+
+## After homework
+
+Persistence in game-adjacent projects is always fun. If I was developing this course, I might have made us have an actual JSON file to store settings and pull from there. But, again, not important.
