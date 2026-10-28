@@ -59,3 +59,5 @@ Anyways, might as well write this now. I'm feeling pretty solid, no complaints h
 Idk, really, what 'today' is in 'What previous content did today's material lean on?', considering the kerfuffle with the date of this journal assignment. Today, on Monday, we were largely discussing guards and validation. I'd say we mostly leaned on the type checks that were covered previously.
 
 ## After homework
+
+Actually, I had to redo part of the previous code. My initial implementation was more of a classical quiz, with right and wrong answers. Here, the task required to add outcomes to everything — which implies that all answers are kinda correct and that the purpose of the quiz is smth we talked about in the first few classes: a classification system a-la Buzzfeed quizzes. It wasn't too difficult, just a tiny bit annoying — as it always is with redoing your own work.
