@@ -1,28 +1,29 @@
 {
-  "name": "course-project",
+  "name": "Course Project",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "^12.15.0",
+      "onFail": "download"
+    }
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node src/index.ts",
-    "check": "tsc --noEmit",
-    "lint-typecheck": "tsc --noEmit",
-    "lint-eslint": "eslint .",
-    "lint-prettier": "prettier --check .",
-    "lint": "npm run lint-typecheck && npm run lint-eslint && npm run lint-prettier"
+    "lint": "nx run-many -t lint",
+    "lint-typecheck": "nx run-many -t lint-typecheck",
+    "lint-eslint": "nx run-many -t lint-eslint",
+    "lint-prettier": "nx run-many -t lint-prettier",
+    "lint-knip": "nx run-many -t lint-knip"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
     "@types/node": "^26.6.5",
-    "eslint": "^10.13.0",
-    "globals": "^17.13.0",
-    "prettier": "^3.9.10",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.72.0"
+    "knip": "catalog:",
+    "nx": "24.0.2",
+    "typescript": "catalog:"
   }
 }

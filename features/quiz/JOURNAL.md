@@ -77,3 +77,19 @@ Yeah, this one did annoy me a bit. As you may have noticed, I started the first 
 ## After homework
 
 Persistence in game-adjacent projects is always fun. If I was developing this course, I might have made us have an actual JSON file to store settings and pull from there. But, again, not important.
+
+# Cycle Journal
+
+## Discovery
+
+First of all, feels weird that different closely related modlets in the same project are using different versions of Prettier. If it were something more fundamental, at least a linter, it would be more realistic. Here — just make everyone use the same formatter, it doesn't really change anything. Just makes things prettier.
+
+The key problem is a menu — it definitely should not be copied and stored in two places. At least without versioning. Someone is bound to change one and forget to mirror it in the other.
+
+## Before homework
+
+First of all, I do not understand the enumerating convention for the Cycles. Why does Cycle go after Cycle 1-4, and why am I now seeing new Cycle 1 tasks in Google Classroom? It's probably Week 1 Cycle 1-4, then Week 1 Cycle Wrap-up, then Week 2 Cycle 1-4 and another wrap-up. At least that's how I'm interpreting it. Anyways, just sharing my perception.
+
+Otherwise, feeling solid, trudging along.
+
+## After homework

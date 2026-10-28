@@ -109,7 +109,7 @@ export class Session {
   }
 }
 
-export function award(question: Question, answer: Answer): Award {
+function award(question: Question, answer: Answer): Award {
   if (question.kind !== answer.kind) {
     throw new Error("The answer does not fit the question")
   }

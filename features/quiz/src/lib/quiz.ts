@@ -26,45 +26,6 @@ export function formatQuestion(question: Question, hints?: boolean): string {
   }
 }
 
-export function parseAnswer(
-  question: Question,
-  input: string,
-): Answer | undefined {
-  const value = input.trim().toLowerCase()
-
-  switch (question.kind) {
-    case "choice": {
-      const choiceNumber = Number(value)
-      const picked = question.choices[choiceNumber - 1]
-
-      if (!Number.isInteger(choiceNumber) || picked === undefined) {
-        return undefined
-      }
-
-      return { kind: "choice", picked }
-    }
-    case "scale": {
-      const scaleValue = Number(value)
-      if (!Number.isInteger(scaleValue) || scaleValue < 1 || scaleValue > 5) {
-        return undefined
-      }
-
-      return { kind: "scale", value: scaleValue, outcome: question.outcome }
-    }
-    case "yesno": {
-      if (value === "y") {
-        return { kind: "yesno", value: true, outcome: question.outcome }
-      }
-
-      if (value === "n") {
-        return { kind: "yesno", value: false, outcome: question.outcome }
-      }
-
-      return undefined
-    }
-  }
-}
-
 export function recap(question: Question, answer: Answer): string {
   if (question.kind !== answer.kind) {
     throw new Error("Question and answer kinds do not match")
