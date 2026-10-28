@@ -39,25 +39,3 @@ console.log("You got this because:")
 for (const reason of session.explain()) {
   console.log(`- ${reason}`)
 }
-
-// Broken save check
-console.log("Broken save check")
-try {
-  loadSavedGame('{"answers":[{"kind":"scale","value":"five"}]}')
-} catch (error) {
-  if (error instanceof Error) {
-    console.log(error.message)
-  }
-}
-
-// Broken settings check
-console.log("Broken settings check")
-for (const saved of ['{"name":"Ada","hints":"no"}', "{"]) {
-  try {
-    loadSettings(saved)
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error.message)
-    }
-  }
-}
