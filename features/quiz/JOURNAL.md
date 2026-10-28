@@ -93,3 +93,6 @@ First of all, I do not understand the enumerating convention for the Cycles. Why
 Otherwise, feeling solid, trudging along.
 
 ## After homework
+
+Blimey, that was hard. No actual coding, but just figuring out all the setup steps. Fortunately, you're just supposed to do it once per monorepo.
+
