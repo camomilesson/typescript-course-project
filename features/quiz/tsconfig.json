@@ -1,14 +1,7 @@
 {
+  "extends": "tooling/typescript",
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
-    "lib": ["ESNext", "DOM"],
-    "strict": true,
-    "verbatimModuleSyntax": true,
-    "erasableSyntaxOnly": true,
-    "noEmit": true,
-    "allowImportingTsExtensions": true,
-    "types": ["node"]
+    "allowJs": true
   },
-  "include": ["src"]
+  "include": ["src", "eslint.config.js"]
 }

@@ -1,14 +1,3 @@
-import js from "@eslint/js"
-import globals from "globals"
-import tseslint from "typescript-eslint"
-import { defineConfig } from "eslint/config"
+import eslintConfig from "tooling/eslint"
 
-export default defineConfig([
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [js.configs.recommended, tseslint.configs.recommended],
-    languageOptions: {
-      globals: globals.node,
-    },
-  },
-])
+export default eslintConfig(import.meta.dirname)

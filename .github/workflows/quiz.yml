@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - "features/quiz/**"
+      - "internal/tooling/**"
       - ".github/workflows/quiz.yml"
       - ".github/actions/**"
 
