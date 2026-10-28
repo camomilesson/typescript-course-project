@@ -1,22 +1,26 @@
 import type { Question, Answer } from "./types.ts"
 
 export function formatQuestion(question: Question): string {
+  const hint = question.hint ? `\nHint: ${question.hint}` : ""
+
   switch (question.kind) {
     case "choice": {
       const choices = question.choices.map(
         (choice, index) => `${index + 1}. ${choice.label}`,
       )
 
-      return [question.text, ...choices, "Type a number:"].join("\n")
+      return [question.text, ...choices, "Type a number:"].join("\n") + hint
     }
     case "scale": {
-      return [
-        question.text,
-        `Type a number from 1 (${question.low}) to 5 (${question.high}):`,
-      ].join("\n")
+      return (
+        [
+          question.text,
+          `Type a number from 1 (${question.low}) to 5 (${question.high}):`,
+        ].join("\n") + hint
+      )
     }
     case "yesno": {
-      return `${question.text} (Y or N)`
+      return `${question.text} (Y or N)${hint}`
     }
   }
 }
@@ -36,7 +40,7 @@ export function parseAnswer(
         return undefined
       }
 
-      return { kind: "choice", picked, outcome: picked.outcome }
+      return { kind: "choice", picked }
     }
     case "scale": {
       const scaleValue = Number(value)

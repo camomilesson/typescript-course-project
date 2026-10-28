@@ -1,48 +1,46 @@
-import { closeInput, readInput } from "./cli.ts"
-import { outcomes, questions } from "./data.ts"
-import { formatQuestion, parseAnswer } from "./quiz.ts"
-import { Session } from "./session.ts"
-import type { Answer } from "./types.ts"
+import { quiz } from "./data.ts"
+import { loadSavedGame } from "./lib/load.ts"
+import { formatQuestion } from "./lib/quiz.ts"
+import { Session } from "./lib/session.ts"
+import { savedGame } from "./saved.ts"
 
-const session = new Session(outcomes)
+const session = new Session(quiz.outcomes)
+const { answers } = loadSavedGame(savedGame)
+
+if (answers.length !== quiz.questions.length) {
+  throw new Error("The saved game must have one answer for each question")
+}
 
 session.start()
 
-try {
-  for (const question of questions) {
-    console.log(formatQuestion(question))
+for (const [index, question] of quiz.questions.entries()) {
+  const answer = answers[index]
+  const { outcome, points } = session.record(question, answer)
 
-    let answer: Answer | undefined
-
-    while (answer === undefined) {
-      const input = await readInput("> ")
-      answer = parseAnswer(question, input)
-
-      if (answer === undefined) {
-        console.log("Invalid answer. Try again.")
-      }
-    }
-
-    const award = session.record(question, answer)
-
-    console.log(`Your answer is worth ${award.points} points`)
-    console.log()
-  }
-
-  session.finish()
-
-  const outcome = session.result()
-
-  console.log(`Your total is: ${session.total()}`)
-  console.log(`Your class is: ${outcome.title}`)
-  console.log(outcome.description)
+  console.log(formatQuestion(question))
+  console.log(`Your answer is worth ${points} points for ${outcome}`)
   console.log()
+}
 
-  console.log("You got this because:")
+session.finish()
 
-  for (const reason of session.explain()) {
-    console.log(`- ${reason}`)
+const outcome = session.result()
+
+console.log(`Your total is: ${session.total()}`)
+console.log(`Your class is: ${outcome.title}`)
+console.log(outcome.description)
+console.log()
+console.log("You got this because:")
+
+for (const reason of session.explain()) {
+  console.log(`- ${reason}`)
+}
+
+// Broken save check
+try {
+  loadSavedGame('{"answers":[{"kind":"scale","value":"five"}]}')
+} catch (error) {
+  if (error instanceof Error) {
+    console.log(error.message)
   }
-} finally {
-  closeInput()
 }

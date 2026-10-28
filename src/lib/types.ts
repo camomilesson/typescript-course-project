@@ -6,7 +6,7 @@ export interface Outcome {
   description: string
 }
 
-interface Choice {
+export interface Choice {
   label: string
   outcome: OutcomeId
   points: number
@@ -14,6 +14,7 @@ interface Choice {
 
 interface BaseQuestion {
   text: string
+  hint?: string
 }
 
 interface ChoiceQuestion extends BaseQuestion {
@@ -38,7 +39,6 @@ export type Question = ChoiceQuestion | ScaleQuestion | YesNoQuestion
 interface ChoiceAnswer {
   kind: "choice"
   picked: Choice
-  outcome: OutcomeId
 }
 
 interface ScaleAnswer {
@@ -54,3 +54,8 @@ interface YesNoAnswer {
 }
 
 export type Answer = ChoiceAnswer | ScaleAnswer | YesNoAnswer
+
+export interface Quiz {
+  outcomes: Outcome[]
+  questions: Question[]
+}

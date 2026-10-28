@@ -1,4 +1,4 @@
-import { type Outcome, type Question } from "./types.ts"
+import { type Outcome, type Question, type Quiz } from "./lib/types.ts"
 
 // Question data kept as placeholders for now.
 // To be filled with real questions as the project approaches completion.
@@ -26,10 +26,11 @@ export const outcomes: Outcome[] = [
   },
 ]
 
-export const questions: Question[] = [
+const questions: Question[] = [
   {
     kind: "choice",
     text: "Choice question?",
+    hint: "Here's a choice question hint",
     choices: [
       {
         label: "Option 1",
@@ -57,3 +58,5 @@ export const questions: Question[] = [
   },
   { kind: "yesno", text: "Yes or no question?", outcome: "fighter" },
 ]
+
+export const quiz: Readonly<Quiz> = { outcomes, questions }
