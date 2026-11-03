@@ -1,8 +1,6 @@
-import { quiz } from "./data.ts"
-import { loadSavedGame } from "./lib/load.ts"
-import { formatQuestion } from "./lib/quiz.ts"
-import { Session } from "./lib/session.ts"
-import { loadSettings } from "./lib/settings.ts"
+import { quiz } from "quiz/data"
+import { formatQuestion, Session } from "quiz/play"
+import { loadSavedGame, loadSettings } from "quiz/saved"
 import { savedGame, savedSettings } from "./saved.ts"
 
 const settings = loadSettings(savedSettings)

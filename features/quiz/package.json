@@ -2,14 +2,17 @@
   "name": "quiz",
   "version": "1.0.0",
   "type": "module",
-  "main": "src/index.ts",
+  "exports": {
+    "./data": "./src/data.ts",
+    "./*": "./src/*/index.ts",
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "lint": "pnpm run \"/^lint-.*/\"",
     "lint-typecheck": "tsc --noEmit",
     "lint-eslint": "eslint .",
     "lint-prettier": "prettier --check .",
     "lint-knip": "knip --directory ../.. --workspace features/quiz",
-    "start": "node .",
     "clean": "rm -rf node_modules/.cache"
   },
   "devDependencies": {

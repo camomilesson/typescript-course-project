@@ -1,0 +1,7 @@
+{
+  "extends": "tooling/typescript",
+  "compilerOptions": {
+    "allowJs": true
+  },
+  "include": ["src", "eslint.config.js"]
+}

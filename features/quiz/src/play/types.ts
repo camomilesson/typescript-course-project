@@ -59,3 +59,8 @@ export interface Quiz {
   outcomes: Outcome[]
   questions: Question[]
 }
+
+export interface Settings {
+  name: string
+  hints?: boolean
+}

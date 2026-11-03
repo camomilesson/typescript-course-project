@@ -1,4 +1,4 @@
-import { type Outcome, type Question, type Quiz } from "./lib/types.ts"
+import { type Outcome, type Question, type Quiz } from "./play/index.ts"
 
 // Question data kept as placeholders for now.
 // To be filled with real questions as the project approaches completion.

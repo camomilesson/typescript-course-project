@@ -1,4 +1,9 @@
-import type { Question, Answer } from "./types.ts"
+import type { Question, Answer, OutcomeId } from "./types.ts"
+
+export interface Award {
+  outcome: OutcomeId
+  points: number
+}
 
 export function formatQuestion(question: Question, hints?: boolean): string {
   const hint =
@@ -44,5 +49,31 @@ export function recap(question: Question, answer: Answer): string {
     }
     default:
       throw new Error("Unknown kind")
+  }
+}
+
+export function award(question: Question, answer: Answer): Award {
+  if (question.kind !== answer.kind) {
+    throw new Error("The answer does not fit the question")
+  }
+
+  switch (answer.kind) {
+    case "choice":
+      return {
+        outcome: answer.picked.outcome,
+        points: answer.picked.points,
+      }
+
+    case "scale":
+      return {
+        outcome: answer.outcome,
+        points: answer.value,
+      }
+
+    case "yesno":
+      return {
+        outcome: answer.outcome,
+        points: answer.value ? 1 : 0,
+      }
   }
 }

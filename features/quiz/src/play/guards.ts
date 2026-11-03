@@ -1,46 +1,7 @@
 import { outcomes } from "../data.ts"
-import { type Answer, type Choice } from "./types.ts"
+import type { Answer, Choice, Settings } from "./types.ts"
 
-export interface SavedGame {
-  answers: Answer[]
-  startedAt?: string
-}
-
-export function loadSavedGame(saved: string): SavedGame {
-  let value: unknown
-
-  try {
-    value = JSON.parse(saved)
-  } catch {
-    throw new Error("The saved game is not parseable")
-  }
-
-  if (!isSavedGame(value)) {
-    throw new Error("The saved game is missing parts")
-  }
-
-  return value
-}
-
-function isSavedGame(value: unknown): value is SavedGame {
-  if (
-    typeof value !== "object" ||
-    value === null ||
-    !("answers" in value) ||
-    !Array.isArray(value.answers) ||
-    !value.answers.every(isAnswer)
-  ) {
-    return false
-  }
-
-  if ("startedAt" in value && typeof value.startedAt !== "string") {
-    return false
-  }
-
-  return true
-}
-
-function isAnswer(value: unknown): value is Answer {
+export function isAnswer(value: unknown): value is Answer {
   if (typeof value !== "object" || value === null || !("kind" in value)) {
     return false
   }
@@ -72,7 +33,7 @@ function isAnswer(value: unknown): value is Answer {
   return false
 }
 
-function isChoice(value: unknown): value is Choice {
+export function isChoice(value: unknown): value is Choice {
   if (typeof value !== "object" || value === null) {
     return false
   }
@@ -89,6 +50,22 @@ function isChoice(value: unknown): value is Choice {
   }
 
   if (!("points" in value) || typeof value.points !== "number") {
+    return false
+  }
+
+  return true
+}
+
+export function isSettings(value: unknown): value is Settings {
+  if (typeof value !== "object" || value === null) {
+    return false
+  }
+
+  if (!("name" in value) || typeof value.name !== "string") {
+    return false
+  }
+
+  if ("hints" in value && typeof value.hints !== "boolean") {
     return false
   }
 

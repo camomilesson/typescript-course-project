@@ -4,14 +4,9 @@ import {
   type OutcomeId,
   type Question,
 } from "./types.ts"
-import { recap } from "./quiz.ts"
+import { award, recap, type Award } from "./quiz.ts"
 
 export type Status = "waiting" | "asking" | "done"
-
-export interface Award {
-  outcome: OutcomeId
-  points: number
-}
 
 export class Session {
   private totalPoints = 0
@@ -106,31 +101,5 @@ export class Session {
     }
 
     return this.totalPoints
-  }
-}
-
-function award(question: Question, answer: Answer): Award {
-  if (question.kind !== answer.kind) {
-    throw new Error("The answer does not fit the question")
-  }
-
-  switch (answer.kind) {
-    case "choice":
-      return {
-        outcome: answer.picked.outcome,
-        points: answer.picked.points,
-      }
-
-    case "scale":
-      return {
-        outcome: answer.outcome,
-        points: answer.value,
-      }
-
-    case "yesno":
-      return {
-        outcome: answer.outcome,
-        points: answer.value ? 1 : 0,
-      }
   }
 }
