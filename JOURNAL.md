@@ -112,4 +112,4 @@ Feeling anxious about having to do both the Course Project and the Personal Proj
 
 ## After homework
 
-To be added after I complete the homework. The deadline mismatch bw journals and their corresponding homeworks is kinda annoying.
+Ok, now I understand the naming convention for the howeworks. The tasks in Module 3 Cycle 1 Course Project were not too difficult — just very time-consuming if you don't know what you're doing (because it's the first time you're doing it). Nothing is wrong about it, just tiring. But I myself chose working and studying at the same time, so the damage is self-inflicted.
