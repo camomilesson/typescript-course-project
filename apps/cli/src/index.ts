@@ -2,7 +2,9 @@ import { quiz } from "quiz/data"
 import { formatQuestion, Session } from "quiz/play"
 import { loadSavedGame, loadSettings } from "quiz/saved"
 import { savedGame, savedSettings } from "./saved.ts"
+import outline, { countKinds as kinds } from "quiz/outline"
 
+// Setup
 const settings = loadSettings(savedSettings)
 console.log(`Hello, ${settings.name}!`)
 
@@ -13,6 +15,20 @@ if (answers.length !== quiz.questions.length) {
   throw new Error("The saved game must have one answer for each question")
 }
 
+// Quiz preview
+console.log("## Outline")
+console.log()
+console.log(outline(quiz))
+console.log()
+
+const counts = kinds(quiz)
+
+console.log(
+  `Kinds: choice ${counts.choice}, scale ${counts.scale}, yesno ${counts.yesno}`,
+)
+console.log()
+
+// Quiz session
 session.start()
 
 for (const [index, question] of quiz.questions.entries()) {
