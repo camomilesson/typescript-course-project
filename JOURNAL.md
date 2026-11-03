@@ -134,4 +134,4 @@ As ready as I'll ever be, trudging along.
 
 ### After homework
 
-TBD.
+I think I've hit my stride. The key is to not get distracted — who would have thunk!?
