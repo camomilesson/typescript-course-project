@@ -20,7 +20,8 @@
     "eslint": "catalog:",
     "knip": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/node": "catalog:"
   },
   "prettier": "tooling/prettier"
 }

@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "type": "module",
   "exports": {
-    "./data": "./src/data.ts",
     "./*": "./src/*/index.ts",
     "./package.json": "./package.json"
   },
@@ -20,7 +19,8 @@
     "eslint": "catalog:",
     "knip": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "@types/node": "catalog:"
   },
   "prettier": "tooling/prettier"
 }

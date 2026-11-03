@@ -1,8 +1,17 @@
-import { quiz } from "quiz/data"
-import { formatQuestion, Session } from "quiz/play"
+import { type Quiz, formatQuestion, Session } from "quiz/play"
+import { loadQuiz } from "quiz/quizzes"
 import { loadSavedGame, loadSettings } from "quiz/saved"
 import { savedGame, savedSettings } from "./saved.ts"
 import outline, { countKinds as kinds } from "quiz/outline"
+
+let quiz: Quiz
+
+try {
+  quiz = await loadQuiz("classes")
+} catch (error) {
+  console.error(error instanceof Error ? error.message : error)
+  process.exit(1)
+}
 
 // Setup
 const settings = loadSettings(savedSettings)

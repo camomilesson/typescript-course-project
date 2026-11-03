@@ -1,5 +1,4 @@
-import { outcomes } from "../data.ts"
-import type { Answer, Choice, Settings } from "./types.ts"
+import type { Answer, Choice, Outcome, Quiz, Settings } from "./types.ts"
 
 export function isAnswer(value: unknown): value is Answer {
   if (typeof value !== "object" || value === null || !("kind" in value)) {
@@ -17,7 +16,7 @@ export function isAnswer(value: unknown): value is Answer {
       value.value >= 1 &&
       value.value <= 5 &&
       "outcome" in value &&
-      outcomes.some((outcome) => outcome.id === value.outcome)
+      typeof value.outcome === "string"
     )
   }
 
@@ -26,7 +25,7 @@ export function isAnswer(value: unknown): value is Answer {
       "value" in value &&
       typeof value.value === "boolean" &&
       "outcome" in value &&
-      outcomes.some((outcome) => outcome.id === value.outcome)
+      typeof value.outcome === "string"
     )
   }
 
@@ -42,10 +41,7 @@ export function isChoice(value: unknown): value is Choice {
     return false
   }
 
-  if (
-    !("outcome" in value) ||
-    !outcomes.some((outcome) => outcome.id === value.outcome)
-  ) {
+  if (!("outcome" in value) || typeof value.outcome !== "string") {
     return false
   }
 
@@ -66,6 +62,22 @@ export function isSettings(value: unknown): value is Settings {
   }
 
   if ("hints" in value && typeof value.hints !== "boolean") {
+    return false
+  }
+
+  return true
+}
+
+export function isQuiz(value: unknown): value is Quiz {
+  if (typeof value !== "object" || value === null) {
+    return false
+  }
+
+  return true
+}
+
+export function isOutcome(value: unknown): value is Outcome {
+  if (typeof value !== "object" || value === null) {
     return false
   }
 
