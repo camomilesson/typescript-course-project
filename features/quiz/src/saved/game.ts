@@ -1,3 +1,5 @@
+import { readFile } from "node:fs/promises"
+
 import { isAnswer, type Answer } from "../play/index.ts"
 
 export interface SavedGame {
@@ -5,7 +7,7 @@ export interface SavedGame {
   startedAt?: string
 }
 
-export function loadSavedGame(saved: string): SavedGame {
+function loadSavedGame(saved: string): SavedGame {
   let value: unknown
 
   try {
@@ -37,4 +39,9 @@ function isSavedGame(value: unknown): value is SavedGame {
   }
 
   return true
+}
+
+export async function readSavedGame(file: string): Promise<SavedGame> {
+  const text = await readFile(file, "utf8")
+  return loadSavedGame(text)
 }

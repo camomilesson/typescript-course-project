@@ -1,4 +1,11 @@
-import type { Answer, Choice, Outcome, Quiz, Settings } from "./types.ts"
+import type {
+  Answer,
+  Choice,
+  Outcome,
+  Question,
+  Quiz,
+  Settings,
+} from "./types.ts"
 
 export function isAnswer(value: unknown): value is Answer {
   if (typeof value !== "object" || value === null || !("kind" in value)) {
@@ -73,6 +80,22 @@ export function isQuiz(value: unknown): value is Quiz {
     return false
   }
 
+  if (
+    !("outcomes" in value) ||
+    !Array.isArray(value.outcomes) ||
+    !value.outcomes.every(isOutcome)
+  ) {
+    return false
+  }
+
+  if (
+    !("questions" in value) ||
+    !Array.isArray(value.questions) ||
+    !value.questions.every(isQuestion)
+  ) {
+    return false
+  }
+
   return true
 }
 
@@ -81,5 +104,64 @@ export function isOutcome(value: unknown): value is Outcome {
     return false
   }
 
+  if (!("id" in value) || typeof value.id !== "string") {
+    return false
+  }
+
+  if (!("title" in value) || typeof value.title !== "string") {
+    return false
+  }
+
+  if (!("description" in value) || typeof value.description !== "string") {
+    return false
+  }
+
   return true
+}
+
+export function isQuestion(value: unknown): value is Question {
+  if (typeof value !== "object" || value === null) {
+    return false
+  }
+
+  if (!("kind" in value) || typeof value.kind !== "string") {
+    return false
+  }
+
+  if (!("text" in value) || typeof value.text !== "string") {
+    return false
+  }
+
+  if ("hint" in value && typeof value.hint !== "string") {
+    return false
+  }
+
+  switch (value.kind) {
+    case "choice":
+      if (!("choices" in value) || !Array.isArray(value.choices)) {
+        return false
+      }
+      return value.choices.every(isChoice)
+
+    case "scale":
+      if (!("low" in value) || typeof value.low !== "string") {
+        return false
+      }
+      if (!("high" in value) || typeof value.high !== "string") {
+        return false
+      }
+      if (!("outcome" in value) || typeof value.outcome !== "string") {
+        return false
+      }
+      return true
+
+    case "yesno":
+      if (!("outcome" in value) || typeof value.outcome !== "string") {
+        return false
+      }
+      return true
+
+    default:
+      return false
+  }
 }
