@@ -154,4 +154,4 @@ Excited to finally catch up with the class on missing homeworks, worried how lon
 
 ### After homework
 
-TBD
+Yeah, this one was tough. But I managed, I guess.
