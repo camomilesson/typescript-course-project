@@ -13,15 +13,16 @@
     "start": "node ."
   },
   "dependencies": {
+    "commander": "^15.0.0",
     "quiz": "workspace:*"
   },
   "devDependencies": {
-    "tooling": "workspace:*",
+    "@types/node": "catalog:",
     "eslint": "catalog:",
     "knip": "catalog:",
     "prettier": "catalog:",
-    "typescript": "catalog:",
-    "@types/node": "catalog:"
+    "tooling": "workspace:*",
+    "typescript": "catalog:"
   },
   "prettier": "tooling/prettier"
 }
