@@ -135,3 +135,23 @@ As ready as I'll ever be, trudging along.
 ### After homework
 
 I think I've hit my stride. The key is to not get distracted — who would have thunk!?
+
+## Cycle 3 Journal
+
+### Discovery
+
+The problem seeems a bit contrived. Obviously, with an actual program we'd expect the user to know the way it's supposed to be run — with [node program_name pizza_size space_separated_list_of_ingredients]. However, the purpose of this discovery is to consider the possibility they don't know how to use it, so here we go.
+
+The command given would produce "One olives pizza with large". The current implementation does not support flags such as "--crust".
+
+To process flags, my first instinct is to iterate over argv with a pointer, on encountering a "--..." process it as a flag and possibly the next argument as the flag's modifier. For example: "--crust" consumes the following "thin" and updates the pointer by +2.
+
+Without modifiers the program should either exit with a clear error or default to a medium Margherita, depending on the business logic.
+
+### Before homework
+
+Excited to finally catch up with the class on missing homeworks, worried how long this one would take. Let's take a look.
+
+### After homework
+
+TBD
