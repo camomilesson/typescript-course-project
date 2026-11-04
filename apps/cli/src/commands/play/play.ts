@@ -1,9 +1,10 @@
-import { formatQuestion, Session } from "quiz/play"
+import { type Answer, recap, Session } from "quiz/play"
 import { loadQuiz } from "quiz/quizzes"
-import { readSavedGame, readSettings } from "quiz/saved"
+import { readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
-import { locateSavedGame, locateSettings } from "../../lib/saved.ts"
+import { locateSettings } from "../../lib/saved.ts"
+import { ask } from "./ask.ts"
 
 interface Options {
   name?: string
@@ -15,15 +16,10 @@ export default async function play(
 ): Promise<void> {
   const quiz = await loadQuiz(quizName)
   const settings = await readSettings(locateSettings())
-  const { answers } = await readSavedGame(locateSavedGame())
 
   console.log(`Hello, ${options.name ?? settings.name}!`)
-
   const session = new Session(quiz.outcomes)
-
-  if (answers.length !== quiz.questions.length) {
-    throw new Error("The saved game must have one answer for each question")
-  }
+  const answers: Answer[] = []
 
   // Quiz preview
   console.log()
@@ -37,18 +33,29 @@ export default async function play(
   console.log()
 
   // Quiz session
-  console.log("## Quiz")
+  console.log("## Questions")
+  console.log()
+
   session.start()
 
-  for (const [index, question] of quiz.questions.entries()) {
-    const answer = answers[index]
+  for (const question of quiz.questions) {
+    const answer = await ask(settings, question)
     const { outcome, points } = session.record(question, answer)
-    console.log(`Question ${index + 1}:`)
-    console.log(formatQuestion(question, settings.hints))
+
+    answers.push(answer)
+
     console.log(`Your answer is worth ${points} points for ${outcome}`)
     console.log()
   }
 
+  console.log("## Recap")
+  console.log()
+
+  for (const [index, question] of quiz.questions.entries()) {
+    console.log(recap(question, answers[index]))
+  }
+
+  console.log()
   session.finish()
 
   // Quiz result
