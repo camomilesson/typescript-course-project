@@ -3,7 +3,7 @@
     {
       "kind": "choice",
       "picked": {
-        "label": "Option 2"
+        "label": "Look for a hidden entrance"
       }
     },
     {
@@ -13,7 +13,40 @@
     {
       "kind": "yesno",
       "value": true
+    },
+    {
+      "kind": "choice",
+      "picked": {
+        "label": "Distract it while someone slips past"
+      }
+    },
+    {
+      "kind": "scale",
+      "value": 3
+    },
+    {
+      "kind": "yesno",
+      "value": true
+    },
+    {
+      "kind": "choice",
+      "picked": {
+        "label": "A set of intricate lockpicks"
+      }
+    },
+    {
+      "kind": "scale",
+      "value": 3
+    },
+    {
+      "kind": "yesno",
+      "value": true
+    },
+    {
+      "kind": "choice",
+      "picked": {
+        "label": "How one clever distraction saved the whole party"
+      }
     }
-  ],
-  "startedAt": "2026-11-03T12:00:00.000Z"
+  ]
 }

@@ -3,58 +3,165 @@
     {
       "id": "fighter",
       "title": "Fighter",
-      "description": "Description for the fighter-type outcome"
+      "description": "You meet danger head-on, protect your companions, and trust preparation and determination."
     },
     {
       "id": "ranger",
       "title": "Ranger",
-      "description": "Description for the ranger-type outcome"
+      "description": "You read the trail, adapt to unfamiliar terrain, and help your party find a way forward."
     },
     {
       "id": "rogue",
       "title": "Rogue",
-      "description": "Description for the rogue-type outcome"
+      "description": "You spot opportunities others miss and prefer clever plans, quiet steps, and a well-timed surprise."
     },
     {
       "id": "wizard",
       "title": "Wizard",
-      "description": "Description for the wizard-type outcome"
+      "description": "You approach the unknown with curiosity, study, and a carefully chosen spell."
     }
   ],
   "questions": [
     {
       "kind": "choice",
-      "text": "Choice question?",
-      "hint": "Here's a choice question hint",
+      "text": "Your party reaches a ruined keep. What do you do first?",
       "choices": [
         {
-          "label": "Option 1",
-          "points": 3,
-          "outcome": "fighter"
+          "label": "Check my shield and lead the way",
+          "outcome": "fighter",
+          "points": 3
         },
         {
-          "label": "Option 2",
-          "points": 1,
-          "outcome": "wizard"
+          "label": "Scout the tracks around the walls",
+          "outcome": "ranger",
+          "points": 3
         },
         {
-          "label": "Option 3",
-          "points": 2,
-          "outcome": "rogue"
+          "label": "Look for a hidden entrance",
+          "outcome": "rogue",
+          "points": 3
+        },
+        {
+          "label": "Study the glowing runes above the gate",
+          "outcome": "wizard",
+          "points": 3
+        }
+      ],
+      "hint": "Choose the approach you would enjoy playing; there are no wrong answers."
+    },
+    {
+      "kind": "scale",
+      "text": "How much would you enjoy spending a night decoding an ancient spellbook?",
+      "low": "I would rather stand watch",
+      "high": "I would lose track of time",
+      "outcome": "wizard"
+    },
+    {
+      "kind": "yesno",
+      "text": "Would you volunteer to stand between an injured companion and an approaching ogre?",
+      "outcome": "fighter"
+    },
+    {
+      "kind": "choice",
+      "text": "A dragon blocks the mountain pass. What is your plan?",
+      "choices": [
+        {
+          "label": "Rally the party and prepare a defensive position",
+          "outcome": "fighter",
+          "points": 3
+        },
+        {
+          "label": "Find another route through the wilderness",
+          "outcome": "ranger",
+          "points": 3
+        },
+        {
+          "label": "Distract it while someone slips past",
+          "outcome": "rogue",
+          "points": 3
+        },
+        {
+          "label": "Research what kind of magic might help",
+          "outcome": "wizard",
+          "points": 3
         }
       ]
     },
     {
       "kind": "scale",
-      "text": "Scale question?",
-      "low": "low answer",
-      "high": "high answer",
+      "text": "How comfortable are you guiding the party through a forest without a map?",
+      "low": "I need clear directions",
+      "high": "Following tracks feels natural",
       "outcome": "ranger"
     },
     {
       "kind": "yesno",
-      "text": "Yes or no question?",
+      "text": "Would you rather sneak past a sleeping guard than challenge them openly?",
+      "outcome": "rogue"
+    },
+    {
+      "kind": "choice",
+      "text": "What reward would you choose from a grateful village?",
+      "choices": [
+        {
+          "label": "A finely balanced sword",
+          "outcome": "fighter",
+          "points": 3
+        },
+        {
+          "label": "A cloak made for long journeys",
+          "outcome": "ranger",
+          "points": 3
+        },
+        {
+          "label": "A set of intricate lockpicks",
+          "outcome": "rogue",
+          "points": 3
+        },
+        {
+          "label": "A scroll filled with unfamiliar magic",
+          "outcome": "wizard",
+          "points": 3
+        }
+      ]
+    },
+    {
+      "kind": "scale",
+      "text": "How much do you enjoy coordinating the front line when a battle begins?",
+      "low": "I prefer another role",
+      "high": "Give me a plan and a shield",
       "outcome": "fighter"
+    },
+    {
+      "kind": "yesno",
+      "text": "Would you stop to investigate a strange magical phenomenon, even if it delayed the quest?",
+      "outcome": "wizard"
+    },
+    {
+      "kind": "choice",
+      "text": "At the tavern after an adventure, what story do you tell?",
+      "choices": [
+        {
+          "label": "How we held the bridge against impossible odds",
+          "outcome": "fighter",
+          "points": 3
+        },
+        {
+          "label": "How we crossed the wilds and found the lost shrine",
+          "outcome": "ranger",
+          "points": 3
+        },
+        {
+          "label": "How one clever distraction saved the whole party",
+          "outcome": "rogue",
+          "points": 3
+        },
+        {
+          "label": "How we unraveled the mystery of the enchanted tower",
+          "outcome": "wizard",
+          "points": 3
+        }
+      ]
     }
   ]
 }
