@@ -1,9 +1,9 @@
 import { readFile } from "node:fs/promises"
 
-import { isAnswer, type Answer } from "../play/index.ts"
+import { isSubmission, type Submission } from "../play/index.ts"
 
 export interface SavedGame {
-  answers: Answer[]
+  answers: Submission[]
   startedAt?: string
 }
 
@@ -29,7 +29,7 @@ function isSavedGame(value: unknown): value is SavedGame {
     value === null ||
     !("answers" in value) ||
     !Array.isArray(value.answers) ||
-    !value.answers.every(isAnswer)
+    !value.answers.every(isSubmission)
   ) {
     return false
   }
