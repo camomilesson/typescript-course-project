@@ -155,3 +155,27 @@ Excited to finally catch up with the class on missing homeworks, worried how lon
 ### After homework
 
 Yeah, this one was tough. But I managed, I guess.
+
+Also: Caught up!
+
+# Module 4
+
+## Cycle 1 Journal
+
+### Discovery
+
+Oh yeah, this one kinda seemed about atomic transactions at first, but was really about data privacy.
+
+Firstly, the customer clearly shouldn't receive staff notes. And the data should be cut server-side, not already in-browser.
+
+Secondly, any request should be assigned an id of some sort, so that two customers don't have to share a machine later.
+
+Finally, on a bad request the client should receive a clear error, either with a descriptive code or with an added message. E.g.: "BAD_MACHINE_ID" and/or "There is no machine ${id}".
+
+### Before homework
+
+By that time the numbering convention for naming cycles was ironed out so I was not confused anymore.
+
+### After homework
+
+Thinking of server-vs-client was interesting. My first time implementing it at this fundamental level.
