@@ -1,26 +1,19 @@
-# Course Project — D&D Quiz
+# Shared quiz package
 
-A classwork sandbox for the Advanced JavaScript and TypeScript course at Harbour.Space University.
+The `quiz` workspace package contains the D&D class quiz domain and the service functions used by both clients. See the [root README](../../README.md) for installation, running the apps, and current limitations.
 
-## About
+## Modlets
 
-This project is a Dungeons & Dragons-themed quiz that tests players' knowledge of D&D 5e rules, from the basics to obscure edge cases.
+- `play`: shared questions, prompts, submissions, reply types, guards, formatting, scoring, and the `Session` class.
+- `quizzes`: validated quiz-file loading and the ten-question `classes` quiz.
+- `outline`: question previews and counts by question kind.
+- `saved`: validated settings and saved-submission file readers for the CLI.
+- `services`: typed HTTP calls with runtime response validation for quiz, session, progress, answers, and results.
 
-The quiz will feature progressively harder questions, a scoring system, and D&D-inspired player rankings.
+Public imports use `quiz/play`, `quiz/quizzes`, `quiz/outline`, `quiz/saved`, and `quiz/services`. Each modlet exposes its public API through `index.ts`. Browser clients use the services and presentation types; file readers and scoring remain on the Node side.
 
-## Planned Features
+Run this package's checks from the repository root:
 
-- Many multiple-choice questions of increasing difficulty.
-- Both command-line (CLI) and web interfaces.
-- Automatic scoring and feedback on answers.
-- D&D-themed ranks based on the final score.
-
-## Tech Stack
-
-- TypeScript
-- HTML/CSS
-- ESLint and Prettier
-
-## Status
-
-In development as part of the Advanced JavaScript and TypeScript course at Harbour.Space University.
+```sh
+pnpm --filter quiz lint
+```
