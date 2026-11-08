@@ -5,8 +5,11 @@ import { optionsFor } from "./options.ts"
 export default function ask(
   app: HTMLElement,
   prompt: Prompt,
+  progress: string,
 ): Promise<Submission> {
   const options = optionsFor(prompt)
+  const line = document.createElement("p")
+  line.textContent = progress
   const heading = document.createElement("h2")
   const list = document.createElement("ul")
 
@@ -23,7 +26,7 @@ export default function ask(
     list.append(item)
   }
 
-  app.replaceChildren(heading, list)
+  app.replaceChildren(line, heading, list)
 
   if (prompt.hint) {
     const hint = document.createElement("p")

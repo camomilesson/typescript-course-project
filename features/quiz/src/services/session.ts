@@ -1,4 +1,5 @@
 import {
+  type ProgressResponse,
   type ResultResponse,
   type StartedResponse,
   type Submission,
@@ -27,6 +28,12 @@ export async function sendAnswer(
 
 export async function getResult(id: string): Promise<ResultResponse> {
   return request<ResultResponse>("/session/result", {
+    headers: { "x-session-id": id },
+  })
+}
+
+export async function getProgress(id: string): Promise<ProgressResponse> {
+  return request<ProgressResponse>("/session", {
     headers: { "x-session-id": id },
   })
 }

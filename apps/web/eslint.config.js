@@ -1,3 +1,3 @@
 import eslintConfig from "tooling/eslint"
 
-export default eslintConfig(import.meta.dirname)
+export default [{ ignores: ["dist/**"] }, ...eslintConfig(import.meta.dirname)]

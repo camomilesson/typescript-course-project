@@ -98,3 +98,8 @@ export interface ResultResponse {
   description: string
   reasons: string[]
 }
+
+export interface ProgressResponse {
+  answered: number
+  total: number
+}

@@ -1,4 +1,4 @@
-import { getQuiz, sendAnswer, startSession } from "quiz/services"
+import { getProgress, getQuiz, sendAnswer, startSession } from "quiz/services"
 
 import ask from "./ask/index.ts"
 
@@ -17,7 +17,12 @@ async function play(app: HTMLElement, quizName: string): Promise<void> {
   const id = await startSession(quizName)
 
   for (const prompt of quiz.questions) {
-    const submission = await ask(app, prompt)
+    const { answered, total } = await getProgress(id)
+    const submission = await ask(
+      app,
+      prompt,
+      `Question ${answered + 1} of ${total}`,
+    )
     await sendAnswer(id, submission)
   }
 
