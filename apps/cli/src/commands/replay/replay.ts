@@ -3,7 +3,7 @@ import { readSavedGame, readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
 import { getQuiz, getResult, sendAnswer, startSession } from "quiz/services"
-import { locateSavedGame, locateSettings } from "../../lib/saved.ts"
+import { locateSavedGame, locateSettings } from "../../saved/index.ts"
 
 export default async function replay(quizName: string): Promise<void> {
   const quiz = await getQuiz(quizName)

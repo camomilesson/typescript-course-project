@@ -3,7 +3,7 @@ import { readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
 import { getQuiz, getResult, sendAnswer, startSession } from "quiz/services"
-import { locateSettings } from "../../lib/saved.ts"
+import { locateSettings } from "../../saved/index.ts"
 import { ask } from "./ask.ts"
 
 interface Options {
