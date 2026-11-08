@@ -193,3 +193,15 @@ No, wrong request should be treated separately — the client should know whethe
 ### Before/after homework
 
 Kinda weird building my own server with Fastify after using Vercel for the Personal Project. Still important to understand it.
+
+## Cycle 3 Journal
+
+### Discovery
+
+Everything is the same apart from (a) path and (b) return type.
+
+I'd write it as function<type>(arguments), but just because it's not my first rodeo.
+
+### Before/after homework
+
+It's all coming together!
