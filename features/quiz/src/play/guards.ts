@@ -22,6 +22,7 @@ export function isAnswer(value: unknown): value is Answer {
     return (
       "value" in value &&
       typeof value.value === "number" &&
+      Number.isInteger(value.value) &&
       value.value >= 1 &&
       value.value <= 5 &&
       "outcome" in value &&
@@ -46,7 +47,11 @@ export function isChoice(value: unknown): value is Choice {
     return false
   }
 
-  if (!("label" in value) || typeof value.label !== "string") {
+  if (
+    !("label" in value) ||
+    typeof value.label !== "string" ||
+    !value.label.trim()
+  ) {
     return false
   }
 
@@ -54,7 +59,12 @@ export function isChoice(value: unknown): value is Choice {
     return false
   }
 
-  if (!("points" in value) || typeof value.points !== "number") {
+  if (
+    !("points" in value) ||
+    typeof value.points !== "number" ||
+    !Number.isFinite(value.points) ||
+    value.points < 0
+  ) {
     return false
   }
 
@@ -98,7 +108,23 @@ export function isQuiz(value: unknown): value is Quiz {
     return false
   }
 
-  return true
+  if (value.outcomes.length === 0 || value.questions.length === 0) {
+    return false
+  }
+  const ids = new Set(value.outcomes.map((outcome) => outcome.id))
+  if (ids.size !== value.outcomes.length) {
+    return false
+  }
+  return value.questions.every((question) => {
+    if (question.kind === "choice") {
+      const labels = new Set(question.choices.map((choice) => choice.label))
+      return (
+        labels.size === question.choices.length &&
+        question.choices.every((choice) => ids.has(choice.outcome))
+      )
+    }
+    return ids.has(question.outcome)
+  })
 }
 
 export function isOutcome(value: unknown): value is Outcome {
@@ -106,15 +132,23 @@ export function isOutcome(value: unknown): value is Outcome {
     return false
   }
 
-  if (!("id" in value) || typeof value.id !== "string") {
+  if (!("id" in value) || typeof value.id !== "string" || !value.id.trim()) {
     return false
   }
 
-  if (!("title" in value) || typeof value.title !== "string") {
+  if (
+    !("title" in value) ||
+    typeof value.title !== "string" ||
+    !value.title.trim()
+  ) {
     return false
   }
 
-  if (!("description" in value) || typeof value.description !== "string") {
+  if (
+    !("description" in value) ||
+    typeof value.description !== "string" ||
+    !value.description.trim()
+  ) {
     return false
   }
 
@@ -130,7 +164,11 @@ export function isQuestion(value: unknown): value is Question {
     return false
   }
 
-  if (!("text" in value) || typeof value.text !== "string") {
+  if (
+    !("text" in value) ||
+    typeof value.text !== "string" ||
+    !value.text.trim()
+  ) {
     return false
   }
 
@@ -140,7 +178,11 @@ export function isQuestion(value: unknown): value is Question {
 
   switch (value.kind) {
     case "choice":
-      if (!("choices" in value) || !Array.isArray(value.choices)) {
+      if (
+        !("choices" in value) ||
+        !Array.isArray(value.choices) ||
+        value.choices.length === 0
+      ) {
         return false
       }
       return value.choices.every(isChoice)
@@ -181,6 +223,7 @@ export function isSubmission(value: unknown): value is Submission {
     return (
       "value" in value &&
       typeof value.value === "number" &&
+      Number.isInteger(value.value) &&
       value.value >= 1 &&
       value.value <= 5
     )

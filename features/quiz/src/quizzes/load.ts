@@ -4,6 +4,12 @@ import path from "node:path"
 import { type Quiz, isQuiz } from "../play/index.ts"
 
 export async function loadQuiz(name: string): Promise<Quiz> {
+  if (!/^[a-z0-9-]+$/.test(name)) {
+    throw new Error(
+      "Quiz names may only contain lowercase letters, numbers, and hyphens",
+    )
+  }
+
   const file = path.join(import.meta.dirname, `${name}.json`)
 
   let text: string
@@ -27,7 +33,9 @@ export async function loadQuiz(name: string): Promise<Quiz> {
   }
 
   if (!isQuiz(value)) {
-    throw new Error(`The quiz "${name}" does not have the shape of a quiz`)
+    throw new Error(
+      `The quiz "${name}" contains invalid questions, choices, or outcomes`,
+    )
   }
 
   return value
