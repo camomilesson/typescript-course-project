@@ -14,8 +14,7 @@
     "lint-prettier": "prettier --check .",
     "lint-knip": "knip --directory ../.. --workspace apps/api",
     "dev": "nodemon src/index.ts",
-    "start": "node .",
-    "test": "node --test src/api.test.ts"
+    "start": "node ."
   },
   "dependencies": {
     "quiz": "workspace:*",

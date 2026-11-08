@@ -14,6 +14,15 @@ interface StartBody {
 }
 
 const session: FastifyPluginCallback = (fastify, _options, done) => {
+  fastify.get<{ Headers: SessionHeader }>("/session", (request, reply) => {
+    const entry = find(request.headers["x-session-id"])
+    if (!entry) {
+      return reply.code(401).send({ error: "Unknown session" })
+    }
+
+    return { answered: entry.answered, total: entry.quiz.questions.length }
+  })
+
   fastify.post<{ Body: StartBody | undefined }>(
     "/session",
     async (request, reply) => {
