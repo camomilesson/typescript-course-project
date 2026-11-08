@@ -191,3 +191,5 @@ To get the departures themselves, we need to know how they are stored and return
 No, wrong request should be treated separately — the client should know whether there's something wrong with their request or with the server itself.
 
 ### Before/after homework
+
+Kinda weird building my own server with Fastify after using Vercel for the Personal Project. Still important to understand it.
