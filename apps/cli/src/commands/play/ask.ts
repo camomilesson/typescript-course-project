@@ -1,10 +1,10 @@
 import { confirm, input, select } from "@inquirer/prompts"
-import type { Answer, Question, Settings } from "quiz/play"
+import type { Prompt, Settings, Submission } from "quiz/play"
 
 export async function ask(
   settings: Settings,
-  question: Question,
-): Promise<Answer> {
+  question: Prompt,
+): Promise<Submission> {
   const hint =
     question.hint && settings.hints !== false ? `\nHint: ${question.hint}` : ""
   const message = `${question.text}${hint}`
@@ -36,7 +36,6 @@ export async function ask(
     return {
       kind: "scale",
       value: Number(value),
-      outcome: question.outcome,
     }
   }
 
@@ -46,7 +45,6 @@ export async function ask(
     return {
       kind: "yesno",
       value,
-      outcome: question.outcome,
     }
   }
 

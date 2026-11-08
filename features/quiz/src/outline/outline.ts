@@ -1,6 +1,8 @@
-import type { Question, Quiz } from "../play/index.ts"
+import type { Prompt } from "../play/index.ts"
 
-export default function outline(quiz: Readonly<Quiz>): string {
+export default function outline(
+  quiz: Readonly<{ questions: Prompt[] }>,
+): string {
   return quiz.questions
     .map((question, index) => {
       const number = index + 1
@@ -23,9 +25,9 @@ export default function outline(quiz: Readonly<Quiz>): string {
 }
 
 export function countKinds(
-  quiz: Readonly<Quiz>,
-): Record<Question["kind"], number> {
-  const counts: Record<Question["kind"], number> = {
+  quiz: Readonly<{ questions: Prompt[] }>,
+): Record<Prompt["kind"], number> {
+  const counts: Record<Prompt["kind"], number> = {
     choice: 0,
     scale: 0,
     yesno: 0,

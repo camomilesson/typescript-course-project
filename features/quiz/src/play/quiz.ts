@@ -1,11 +1,11 @@
-import type { Question, Answer } from "./types.ts"
+import type { Question, Answer, Prompt, Submission } from "./types.ts"
 
 export interface Award {
   outcome: string
   points: number
 }
 
-export function formatQuestion(question: Question, hints?: boolean): string {
+export function formatQuestion(question: Prompt, hints?: boolean): string {
   const hint =
     hints !== false && question.hint ? `\nHint: ${question.hint}` : ""
 
@@ -31,7 +31,7 @@ export function formatQuestion(question: Question, hints?: boolean): string {
   }
 }
 
-export function recap(question: Question, answer: Answer): string {
+export function recap(question: Prompt, answer: Submission): string {
   if (question.kind !== answer.kind) {
     throw new Error("Question and answer kinds do not match")
   }

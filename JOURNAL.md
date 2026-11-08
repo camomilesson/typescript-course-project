@@ -179,3 +179,15 @@ By that time the numbering convention for naming cycles was ironed out so I was 
 ### After homework
 
 Thinking of server-vs-client was interesting. My first time implementing it at this fundamental level.
+
+## Cycle 2 Journal
+
+### Discovery
+
+It would just attempt to print whatever is at that address: JSON, plain HTML, other data.
+
+To get the departures themselves, we need to know how they are stored and returned. Probably as JSON, so likely .parse() with some checks and whatnot.
+
+No, wrong request should be treated separately — the client should know whether there's something wrong with their request or with the server itself.
+
+### Before/after homework

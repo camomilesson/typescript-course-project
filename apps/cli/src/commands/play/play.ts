@@ -1,10 +1,11 @@
-import { type Answer, recap, Session } from "quiz/play"
-import { loadQuiz } from "quiz/quizzes"
+import { type Prompt, recap, type Submission } from "quiz/play"
 import { readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
 import { locateSettings } from "../../lib/saved.ts"
 import { ask } from "./ask.ts"
+
+const baseUrl = "http://localhost:3000"
 
 interface Options {
   name?: string
@@ -14,14 +15,21 @@ export default async function play(
   quizName: string,
   options: Options,
 ): Promise<void> {
-  const quiz = await loadQuiz(quizName)
+  const quizResponse = await call(`/quizzes/${encodeURIComponent(quizName)}`)
+  const quiz = (await quizResponse.json()) as { questions: Prompt[] }
   const settings = await readSettings(locateSettings())
 
   console.log(`Hello, ${options.name ?? settings.name}!`)
-  const session = new Session(quiz.outcomes)
-  const answers: Answer[] = []
+  const startResponse = await call("/session", {
+    method: "POST",
+    headers: { "content-type": "application/json" },
+    body: JSON.stringify({ quiz: quizName }),
+  })
+  const { session_id: id } = (await startResponse.json()) as {
+    session_id: string
+  }
+  const answers: Submission[] = []
 
-  // Quiz preview
   console.log()
   console.log("## Outline")
   console.log(outline(quiz))
@@ -32,19 +40,19 @@ export default async function play(
   )
   console.log()
 
-  // Quiz session
   console.log("## Questions")
   console.log()
 
-  session.start()
-
   for (const question of quiz.questions) {
     const answer = await ask(settings, question)
-    const { outcome, points } = session.record(question, answer)
+    await call("/session/answer", {
+      method: "POST",
+      headers: { "content-type": "application/json", "x-session-id": id },
+      body: JSON.stringify(answer),
+    })
 
     answers.push(answer)
 
-    console.log(`Your answer is worth ${points} points for ${outcome}`)
     console.log()
   }
 
@@ -56,19 +64,55 @@ export default async function play(
   }
 
   console.log()
-  session.finish()
+  const resultResponse = await call("/session/result", {
+    headers: { "x-session-id": id },
+  })
+  const result = (await resultResponse.json()) as {
+    title: string
+    description: string
+    reasons: string[]
+  }
 
-  // Quiz result
   console.log("## Result")
-  const outcome = session.result()
 
-  console.log(`Your total is: ${session.total()}`)
-  console.log(`Your class is: ${outcome.title}`)
-  console.log(outcome.description)
+  console.log(`Your class is: ${result.title}`)
+  console.log(result.description)
   console.log()
   console.log("You got this because:")
 
-  for (const reason of session.explain()) {
+  for (const reason of result.reasons) {
     console.log(`- ${reason}`)
   }
+}
+
+async function call(path: string, init?: RequestInit): Promise<Response> {
+  let response: Response
+
+  try {
+    response = await fetch(`${baseUrl}${path}`, init)
+  } catch {
+    throw new Error(`Cannot reach the server at ${baseUrl}`)
+  }
+
+  if (!response.ok) {
+    let message = `The server answered ${response.status}`
+
+    try {
+      const body: unknown = await response.json()
+      if (
+        typeof body === "object" &&
+        body !== null &&
+        "error" in body &&
+        typeof body.error === "string"
+      ) {
+        message = body.error
+      }
+    } catch {
+      throw new Error(message)
+    }
+
+    throw new Error(message)
+  }
+
+  return response
 }
