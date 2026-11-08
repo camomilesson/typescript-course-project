@@ -63,43 +63,27 @@ export interface Settings {
   hints?: boolean
 }
 
-interface ChoicePrompt extends BaseQuestion {
-  kind: "choice"
+type ChoicePrompt = Omit<ChoiceQuestion, "choices"> & {
   choices: PromptChoice[]
 }
 
-interface ScalePrompt extends BaseQuestion {
-  kind: "scale"
-  low: string
-  high: string
-}
+type ScalePrompt = Omit<ScaleQuestion, "outcome">
 
-interface YesNoPrompt extends BaseQuestion {
-  kind: "yesno"
-}
+type YesNoPrompt = Omit<YesNoQuestion, "outcome">
 
 export type Prompt = ChoicePrompt | ScalePrompt | YesNoPrompt
 
-interface ChoiceSubmission {
-  kind: "choice"
+type ChoiceSubmission = Omit<ChoiceAnswer, "picked"> & {
   picked: PromptChoice
 }
 
-interface ScaleSubmission {
-  kind: "scale"
-  value: number
-}
+type ScaleSubmission = Omit<ScaleAnswer, "outcome">
 
-interface YesNoSubmission {
-  kind: "yesno"
-  value: boolean
-}
+type YesNoSubmission = Omit<YesNoAnswer, "outcome">
 
 export type Submission = ChoiceSubmission | ScaleSubmission | YesNoSubmission
 
-export interface PromptChoice {
-  label: string
-}
+export type PromptChoice = Pick<Choice, "label">
 
 export interface QuizResponse {
   questions: Prompt[]
