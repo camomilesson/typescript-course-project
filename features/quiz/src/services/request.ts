@@ -2,10 +2,20 @@ const BASE_URL = "http://localhost:3000"
 
 export async function request<Reply extends object = object>(
   path: string,
+  validate: (value: unknown) => value is Reply,
   init?: RequestInit,
 ): Promise<Reply> {
   const response = await call(path, init)
-  return response.json() as Promise<Reply>
+  let body: unknown
+  try {
+    body = await response.json()
+  } catch {
+    throw new Error(`The server returned invalid JSON for ${path}`)
+  }
+  if (!validate(body)) {
+    throw new Error(`The server returned an invalid response for ${path}`)
+  }
+  return body
 }
 
 export async function call(
