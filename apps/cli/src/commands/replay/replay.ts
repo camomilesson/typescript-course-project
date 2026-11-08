@@ -1,13 +1,12 @@
-import { formatQuestion, type Prompt, recap } from "quiz/play"
+import { formatQuestion, recap } from "quiz/play"
 import { readSavedGame, readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
-import { call } from "../../lib/api.ts"
+import { getQuiz, getResult, sendAnswer, startSession } from "quiz/services"
 import { locateSavedGame, locateSettings } from "../../lib/saved.ts"
 
 export default async function replay(quizName: string): Promise<void> {
-  const quizResponse = await call(`/quizzes/${encodeURIComponent(quizName)}`)
-  const quiz = (await quizResponse.json()) as { questions: Prompt[] }
+  const quiz = await getQuiz(quizName)
   const settings = await readSettings(locateSettings())
   const { answers } = await readSavedGame(locateSavedGame())
 
@@ -28,22 +27,11 @@ export default async function replay(quizName: string): Promise<void> {
   console.log()
 
   console.log("## Quiz")
-  const startResponse = await call("/session", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ quiz: quizName }),
-  })
-  const { session_id: id } = (await startResponse.json()) as {
-    session_id: string
-  }
+  const id = await startSession(quizName)
 
   for (const [index, question] of quiz.questions.entries()) {
     const answer = answers[index]
-    await call("/session/answer", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-session-id": id },
-      body: JSON.stringify(answer),
-    })
+    await sendAnswer(id, answer)
 
     console.log(`Question ${index + 1}:`)
     console.log(formatQuestion(question, settings.hints))
@@ -58,14 +46,7 @@ export default async function replay(quizName: string): Promise<void> {
   }
 
   console.log()
-  const resultResponse = await call("/session/result", {
-    headers: { "x-session-id": id },
-  })
-  const result = (await resultResponse.json()) as {
-    title: string
-    description: string
-    reasons: string[]
-  }
+  const result = await getResult(id)
 
   console.log("## Result")
 
