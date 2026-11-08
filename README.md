@@ -30,12 +30,12 @@ Start the web app in a second terminal:
 pnpm --filter web dev
 ```
 
-Open the address Vite prints, normally `http://localhost:5173`. Choose an answer to advance. The page shows server-reported progress from Question 1 of 10 through Question 10 of 10, then displays “Thank you.” Refreshing starts a new session.
+Open the address Vite prints, normally `http://localhost:5173`. Choose an answer to advance. The page shows server-reported progress from Question 1 of 10 through Question 10 of 10, then displays your class, its contributing answers, and a recap of all ten answers. “Play again” starts a new session; refreshing does too.
 
 With the API running, use another terminal for the CLI:
 
 ```sh
-pnpm --filter cli start play classes --name Ada
+pnpm --filter cli start play classes --name Andrei
 pnpm --filter cli start replay classes
 ```
 
@@ -73,7 +73,7 @@ Application code lives in `src`. Related files form modlets with `index.ts` publ
 
 ## How the parts fit together
 
-Both clients use `quiz/services` to fetch questions, start a session, and send submissions. The CLI also requests the result; the web requests progress before each question. The API loads and validates the scored quiz, strips scoring information from public prompts, and resolves submitted choice labels against the original choices. Clients never choose their own points or outcome IDs.
+Both clients use `quiz/services` to fetch questions, start a session, and send submissions. Both clients request the result; the web also requests progress before each question. The API loads and validates the scored quiz, strips scoring information from public prompts, and resolves submitted choice labels against the original choices. Clients never choose their own points or outcome IDs.
 
 The shared code demonstrates discriminated unions, type guards and narrowing, interfaces, generics, `Pick` and `Omit`, classes with private state, array transformations, asynchronous file I/O, promises, HTTP requests, and DOM events. Successful JSON replies are checked at runtime before reaching the clients. Quiz validation checks shapes, nonempty questions/outcomes, unique outcome IDs and choice labels, finite nonnegative points, and valid outcome references.
 
@@ -93,8 +93,8 @@ Each choice awards three points to its associated class. A scale awards its valu
 
 ## Current status and next steps
 
-Working: all three clients/server parts, ten questions across three kinds, server-side scoring, saved replay, progress, typed route contracts, runtime validation, and readable connection/validation errors.
+Working: all three clients/server parts, ten questions across three kinds, server-side scoring, saved replay, browser results and answer recap, replay controls, progress, typed route contracts, runtime validation, and readable connection/validation errors.
 
-Limitations: the web currently ends with a thank-you message instead of showing the class result. Only the `classes` quiz is bundled. Sessions live in process memory, disappear when the API restarts, and have no expiry or authentication. The API URL is fixed to localhost:3000; CORS is enabled for local development. Saved replay answers are edited manually. The page has minimal styling and offers no retry or resume control.
+Limitations: only the `classes` quiz is bundled. Sessions live in process memory, disappear when the API restarts, and have no expiry or authentication. The API URL is fixed to localhost:3000; CORS is enabled for local development. Saved replay answers are edited manually. The page has minimal styling and offers no retry or resume control.
 
-Next steps: show the result and explanations in the browser, improve accessibility and presentation, add quiz selection, configure API origins per environment, and introduce persistent sessions with expiry before public deployment.
+Next steps: improve accessibility and presentation, add quiz selection, configure API origins per environment, and introduce persistent sessions with expiry before public deployment.
