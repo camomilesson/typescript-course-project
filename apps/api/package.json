@@ -18,7 +18,8 @@
   },
   "dependencies": {
     "quiz": "workspace:*",
-    "fastify": "^5.8.0"
+    "fastify": "^5.8.0",
+    "@fastify/cors": "^11.1.0"
   },
   "devDependencies": {
     "tooling": "workspace:*",
