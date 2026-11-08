@@ -1,11 +1,29 @@
-name: quiz
+name: Workspace checks
 
 on:
   push:
     paths:
-      - "features/quiz/**"
-      - "internal/tooling/**"
-      - ".github/workflows/quiz.yml"
+      - "apps/**"
+      - "features/**"
+      - "internal/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "nx.json"
+      - "knip.json"
+      - ".github/workflows/**"
+      - ".github/actions/**"
+  pull_request:
+    paths:
+      - "apps/**"
+      - "features/**"
+      - "internal/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "pnpm-workspace.yaml"
+      - "nx.json"
+      - "knip.json"
+      - ".github/workflows/**"
       - ".github/actions/**"
 
 jobs:
@@ -14,4 +32,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
-      - run: pnpm --filter quiz lint
+      - run: pnpm lint
