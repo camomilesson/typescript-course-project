@@ -1,3 +1,4 @@
+import { type ErrorResponse, type QuizResponse } from "quiz/play"
 import { type FastifyPluginCallback } from "fastify"
 
 import { findQuiz } from "#shared/quizzes"
@@ -8,7 +9,10 @@ interface Params {
 }
 
 const quizzes: FastifyPluginCallback = (fastify, _options, done) => {
-  fastify.get<{ Params: Params }>("/quizzes/:name", async (request, reply) => {
+  fastify.get<{
+    Params: Params
+    Reply: { 200: QuizResponse; 404: ErrorResponse }
+  }>("/quizzes/:name", async (request, reply) => {
     const quiz = await findQuiz(request.params.name)
     if (!quiz) {
       return reply.code(404).send({ error: "There is no such quiz" })
