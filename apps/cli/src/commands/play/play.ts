@@ -1,8 +1,8 @@
-import { type Prompt, recap, type Submission } from "quiz/play"
+import { recap, type Submission } from "quiz/play"
 import { readSettings } from "quiz/saved"
 import outline, { countKinds as kinds } from "quiz/outline"
 
-import { call } from "../../lib/api.ts"
+import { getQuiz, getResult, sendAnswer, startSession } from "quiz/services"
 import { locateSettings } from "../../lib/saved.ts"
 import { ask } from "./ask.ts"
 
@@ -14,19 +14,11 @@ export default async function play(
   quizName: string,
   options: Options,
 ): Promise<void> {
-  const quizResponse = await call(`/quizzes/${encodeURIComponent(quizName)}`)
-  const quiz = (await quizResponse.json()) as { questions: Prompt[] }
+  const quiz = await getQuiz(quizName)
   const settings = await readSettings(locateSettings())
 
   console.log(`Hello, ${options.name ?? settings.name}!`)
-  const startResponse = await call("/session", {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ quiz: quizName }),
-  })
-  const { session_id: id } = (await startResponse.json()) as {
-    session_id: string
-  }
+  const id = await startSession(quizName)
   const answers: Submission[] = []
 
   console.log()
@@ -44,11 +36,7 @@ export default async function play(
 
   for (const question of quiz.questions) {
     const answer = await ask(settings, question)
-    await call("/session/answer", {
-      method: "POST",
-      headers: { "content-type": "application/json", "x-session-id": id },
-      body: JSON.stringify(answer),
-    })
+    await sendAnswer(id, answer)
 
     answers.push(answer)
 
@@ -63,14 +51,7 @@ export default async function play(
   }
 
   console.log()
-  const resultResponse = await call("/session/result", {
-    headers: { "x-session-id": id },
-  })
-  const result = (await resultResponse.json()) as {
-    title: string
-    description: string
-    reasons: string[]
-  }
+  const result = await getResult(id)
 
   console.log("## Result")
 
