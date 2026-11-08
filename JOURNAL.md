@@ -205,3 +205,17 @@ I'd write it as function<type>(arguments), but just because it's not my first ro
 ### Before/after homework
 
 It's all coming together!
+
+## Cycle 4 Journal
+
+### Discovery
+
+Yeah, the buttons are going to need some identifiers. Otherwise you can't tell one click from another. Theoretically, you can map clicks by their coordinates but I'm sure it gets quite complicated — if not impossible — when you're working with arbitrary screen sizes and adaptive designs.
+
+My intuition is to have one listener per button, but in class you seemed to prefer one listener per logical block of buttons. Idk really, I'd probably research it before deciding — but Discovery problems are not supposed to be researched. My read is that one listener might be cheaper in terms of compute — the image I have is that every listener gets put into a while loop, and the more you have the longer it takes to do one full loop. At the same time, single-purpose listeners might be simpler for coding — so there are less risks/mistakes.
+
+Repeated click behaviour should probably depend on business logic. If another click should reload the data — sure, do the work again. If it's not a concern — cache the view somehow and avoid repeated processing.
+
+## Before/after homework
+
+Overall, this was quite hard. Not in terms of difficulty, more like volume and complexity. At times, I was punching myself for asking you to give us more HW. But we persisted.
